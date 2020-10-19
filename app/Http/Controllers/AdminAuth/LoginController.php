@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\AdminAuth;
 
 use App\Http\Controllers\Controller;
+use App\Model\AdvocateClient;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
 use Illuminate\Http\Request;
+use App\Admin;
 
 class LoginController extends Controller
 {
@@ -66,16 +68,17 @@ class LoginController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('admin/login');
-        
+
     }
     public function loginAsAdmin()
     {
         Auth::guard('admin')->loginUsingId(1, true);
         return redirect($this->redirectPath());
     }
-    public function loginAsStaff()
+    public function loginAsStaff(Request $request)
     {
-        Auth::guard('admin')->loginUsingId(2, true);
+        $user = Admin::where('invitation_code', $request->invitation_code)->first();
+        Auth::guard('admin')->loginUsingId($user->id, true);
         return redirect($this->redirectPath());
     }
 }

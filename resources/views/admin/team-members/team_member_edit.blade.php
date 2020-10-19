@@ -48,7 +48,7 @@
                                                         <input type="checkbox" value="Yes" name="is_remove_image"
                                                                id="is_remove_image">&nbsp;Remove feature image.</label>
                                                 @else
-                                                    <img id="demo_profile" src="{{asset('public/upload/profile.png')}}"
+                                                    <img id="demo_profile" src="{{asset('upload/profile.png')}}"
                                                          width='100px' height='100px'
                                                          class="demo_profile"
                                                     >

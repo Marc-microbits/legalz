@@ -28,7 +28,17 @@
 
                         <div class="row">
 
-                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-1 col-sm-12 col-xs-12 form-group">
+                                <label for="prefix">Prefix <span class="text-danger">*</span></label>
+                                <select class="form-control" id="prefix" name="prefix">
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Proff.">Proff.</option>
+                                    <option value="Eng.">Eng.</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                                 <label for="fullname">First Name <span class="text-danger">*</span></label>
                                 <input type="text" placeholder="" class="form-control" id="f_name" name="f_name">
                             </div>
@@ -57,15 +67,15 @@
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Mobile No. <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="" class="form-control" id="mobile" maxlength="10"
+                                <label for="fullname">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="text" placeholder="" class="form-control" id="mobile" maxlength="20"
                                        name="mobile">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Alternate No.</label>
+                                <label for="fullname">Alternate Number</label>
                                 <input type="text" placeholder="" class="form-control" id="alternate_no"
                                        name="alternate_no" maxlength="10">
                             </div>
@@ -103,14 +113,8 @@
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                 <label for="fullname">City <span class="text-danger">*</span></label>
-                                <select id="city_id" name="city_id"
-                                        data-url="{{ route('get.city') }}"
-                                        data-target="#state"
-
-                                        class="form-control city-select2">
-                                    <option value=""> Select City</option>
-
-                                </select>
+                                <input type="text" id="city_id" name="city_id"
+                                        class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -121,17 +125,18 @@
                             </div>
 
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Reference Mobile </label>
-                                <input type="text" placeholder="" class="form-control" id="reference_mobile"
-                                       name="reference_mobile">
+                                <label for="client_code">Invitation code </label><br/>
+                                <span style="font-size: 24px;">{{$uniqid}}</span>
+                                <input type="hidden" placeholder="" id="client_code"
+                                       name="client_code" value="{{$uniqid}}" />
                             </div>
 
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <br>
-                            <input type="checkbox" value="Yes" name="change_court_chk" id="change_court_chk"> Add more
-                            person
+{{--                            <input type="checkbox" value="Yes" name="change_court_chk" id="change_court_chk"> Add more--}}
+{{--                            person--}}
                             <br/>
 
                         </div>
@@ -145,143 +150,6 @@
                                     &nbsp;&nbsp;Single Advocate:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="radio" name="type" id="test7" value="multiple"/>&nbsp;&nbsp;Multiple
                                     Advocate
-                                </div>
-                            </div>
-                            <div class="repeater one">
-                                <div data-repeater-list="group-a">
-                                    <div data-repeater-item>
-                                        <div class="row border-addmore"
-                                        >
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">First Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="firstname" name="firstname"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter first name."
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Middle Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="middlename" name="middlename"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter middle name."
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Last Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="lastname" name="lastname"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter last name." class="form-control">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Mobile No. <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="mobile_client" name="mobile_client"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter mobile number."
-                                                       data-rule-number="true" data-msg-number="please enter digit 0-9."
-                                                       data-rule-minlength="10"
-                                                       data-msg-minlength="mobile must be 10 digit."
-                                                       data-rule-maxlength="10"
-                                                       data-msg-maxlength="mobile must be 10 digit."
-                                                       class="form-control" maxlength="10">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Address <span class="text-danger">*</span></label>
-                                                <input type="text" id="address_client" name="address_client"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter address." class="form-control">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <br>
-                                                <button type="button" data-repeater-delete type="button"
-                                                        class="btn btn-danger"><i class="fa fa-trash-o"
-                                                                                  aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                                    <br>
-                                    <button data-repeater-create type="button" value="Add New"
-                                            class="btn btn-success waves-effect waves-light btn btn-success-edit"
-                                            type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                            <div class="repeater two">
-                                <div data-repeater-list="group-b">
-                                    <div data-repeater-item>
-                                        <div class="row border-addmore"
-                                        >
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">First Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="firstname" name="firstname"
-                                                       data-rule-required="true" data-msg-required="Please enter name."
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Middle Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="middlename" name="middlename"
-                                                       data-rule-required="true" data-msg-required="Please enter name."
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Last Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="lastname" name="lastname"
-                                                       data-rule-required="true" data-msg-required="Please enter name."
-                                                       class="form-control">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Mobile No. <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" id="mobile_client" name="mobile_client"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter mobile number."
-                                                       data-rule-number="true" data-msg-number="please enter digit 0-9."
-                                                       data-rule-minlength="10"
-                                                       data-msg-minlength="mobile must be 10 digit."
-                                                       data-rule-maxlength="10"
-                                                       data-msg-maxlength="mobile must be 10 digit."
-                                                       class="form-control" maxlength="10">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Address <span class="text-danger">*</span></label>
-                                                <input type="text" id="address_client" name="address_client"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter address." class="form-control">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <label for="fullname">Advocate Name. <span class="text-danger">*</span></label>
-                                                <input type="text" id="advocate_name" name="advocate_name"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter advocate name."
-                                                       class="form-control">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                <br>
-                                                <button type="button" data-repeater-delete type="button"
-                                                        class="btn btn-danger waves-effect waves-light"><i
-                                                        class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                                    <br>
-                                    <button data-repeater-create type="button" value="Add New"
-                                            class="btn btn-success waves-effect waves-light btn btn-success-edit"
-                                            type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>

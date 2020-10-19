@@ -20,20 +20,20 @@ var FormControlsClient = {
                 },
                 mobile: {
                     required: true,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 },
                 alternate_no: {
                     required: false,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 },
                 reference_mobile: {
                     required: false,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 }
             },

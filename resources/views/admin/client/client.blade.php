@@ -22,6 +22,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Client Name</th>
+                                <th>Invitation Code</th>
                                 <th width="5%">Mobile</th>
                                 <th width="5%" data-orderable="false">Case</th>
                                 <th width="5%" data-orderable="false">Status</th>

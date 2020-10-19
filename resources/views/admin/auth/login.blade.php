@@ -42,32 +42,26 @@
       <a class="hiddenanchor" id="signin"></a>
 
       <div class="login_wrapper">
-        <div class="animate form login_form">
+          <div class="col-12 text-center mb-5">
+              @if($image_logo->logo_img!='')
+                  <img src="{{asset(config('constants.LOGO_FOLDER_PATH') .'/'. $image_logo->logo_img)}}" style="margin-bottom: 20px;">
+              @else
+                  <img src="{{ asset('upload/logo.png') }}" style="margin-bottom: 20px;">
+              @endif
+          </div>
+        <div class="animate form login_form" style="right: 70%;top: 60px;">
           <section class="login_content">
-             <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
+             <form class="form-horizontal" role="form" method="POST" action="{{ url('/login-as-staff') }}">
                         {{ csrf_field() }}
 
-                @if($image_logo->logo_img!='')
-                <img src="{{asset(config('constants.LOGO_FOLDER_PATH') .'/'. $image_logo->logo_img)}}" style="margin-bottom: 20px;">
-                @else
-                <img src="{{ asset('public/upload/logo.png') }}" style="margin-bottom: 20px;">
-                @endif
-              <h2> Login Your Account </h2>
+
+              <h2> Client Login </h2>
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                   <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus placeholder="Email">
+                   <input id="invitation_code" type="text" class="form-control" name="invitation_code" autofocus placeholder="Invitation Code">
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('invitation_code'))
                                     <span class="help-block text-left">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-              </div>
-             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                 <input id="password" type="password" class="form-control" name="password" autocomplete="off" placeholder="Password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block text-left">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('invitation_code') }}</strong>
                                     </span>
                                 @endif
               </div>
@@ -75,24 +69,57 @@
                      <button type="submit" class="btn btn-default">
                                     Login
                                 </button>
-                <a class="reset_pass"  href="{{ url('/admin/password/reset') }}">Lost your password?</a>
               </div>
 
               <div class="clearfix"></div>
 
-              <div class="separator">
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-      
-                  <p>©2019 All Rights Reserved. LawOffice</p>
-                </div>
-              </div>
             </form>
           </section>
         </div>
+          <div class="animate form login_form" style="left: 70%;top: 60px;">
+              <section class="login_content">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
+                      {{ csrf_field() }}
+
+                      <h2> Advocate Login </h2>
+                      <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                          <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus placeholder="Email">
+
+                          @if ($errors->has('email'))
+                              <span class="help-block text-left">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                          @endif
+                      </div>
+                      <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                          <input id="password" type="password" class="form-control" name="password" autocomplete="off" placeholder="Password">
+
+                          @if ($errors->has('password'))
+                              <span class="help-block text-left">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                          @endif
+                      </div>
+                      <div>
+                          <button type="submit" class="btn btn-default">
+                              Login
+                          </button>
+                          <a class="reset_pass"  href="{{ url('/admin/password/reset') }}">Lost your password?</a>
+                      </div>
+
+                      <div class="clearfix"></div>
+                  </form>
+              </section>
+          </div>
+          <div class="col-md-12 text-center" style="top: 300px;">
+              <div class="separator">
+
+                  <div class="clearfix"></div>
+                  <br />
+
+              </div>
+              <p>©2019 All Rights Reserved. LawOffice</p>
+          </div>
       </div>
     </div>
     <!-- jQuery -->

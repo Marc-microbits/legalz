@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreClient;
 use App\Http\Controllers\Controller;
@@ -12,6 +13,7 @@ use App\Traits\DatatablTrait;
 use App\Model\Country;
 use App\Model\State;
 use App\Model\City;
+use Illuminate\Support\Str;
 use DB;
 use Session;
 
@@ -49,7 +51,11 @@ class ClientController extends Controller
         $this->data['country'] = Country::all();
         $this->data['state'] = State::all();
         $this->data['city'] = State::all();
-        return view('admin.client.client_create', $this->data);
+        do{
+            $uniqid = Str::random(6);
+        }while(AdvocateClient::where('invitation_code', $uniqid)->count() != 0);
+
+        return view('admin.client.client_create', compact('uniqid'));
     }
 
     public function ClientList(Request $request)
@@ -61,10 +67,11 @@ class ClientController extends Controller
         $columns = array(
             0 => 'id',
             1 => 'first_name',
-            2 => 'mobile',
-            3 => 'case',
-            4 => 'is_active',
-            5 => 'action',
+            2 => 'invitation_code',
+            3 => 'mobile',
+            4 => 'case',
+            5 => 'is_active',
+            6 => 'action',
         );
 
         $totalData = AdvocateClient::count(); // datata table count
@@ -100,6 +107,7 @@ class ClientController extends Controller
             }
 
             $row['first_name'] = '<a class="title text-primary" href="' . $show . '">' . $item->full_name . '</a>';
+            $row['invitation_code'] = $item->invitation_code;
             $row['mobile'] = $item->mobile;
             $row['case'] = "<a class='title text-primary' href='{$case_list}'>" . $this->getClientCasesTotal($item->id) . "</a>";
 
@@ -144,6 +152,8 @@ class ClientController extends Controller
     public function store(StoreClient $request)
     {
         $AdvocateClient = new AdvocateClient;
+        $AdvocateClient->prefix = $request->prefix;
+        $AdvocateClient->invitation_code = $request->client_code;
         $AdvocateClient->first_name = $request->f_name;
         $AdvocateClient->middle_name = $request->m_name;
         $AdvocateClient->last_name = $request->l_name;
@@ -157,9 +167,23 @@ class ClientController extends Controller
         $AdvocateClient->city_id = $request->city_id;
         $AdvocateClient->client_type = $request->type;
         $AdvocateClient->reference_name = $request->reference_name;
-        $AdvocateClient->reference_mobile = $request->reference_mobile;
         $AdvocateClient->save();
         $clientId = $AdvocateClient->id;
+
+        $user = new Admin();
+        $user->name = $request->f_name. " ".  $request->m_name. ' '. $request->l_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->invitation_code);
+        $user->first_name = $request->f_name;
+        $user->last_name = $request->l_name;
+        $user->mobile = $request->mobile;
+        $user->is_activated = 1;
+        $user->is_user_type = "STAFF";
+        $user->is_active = "yes";
+        $user->is_expired = "no";
+        $user->user_type = "User";
+        $user->invitation_code = $request->invitation_code;
+        $user->save();
 
         if ($request->type == "single") {
             if (isset($request['group-a']) && count($request['group-a']) > 0) {

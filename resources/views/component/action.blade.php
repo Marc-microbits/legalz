@@ -1,7 +1,7 @@
 <ul class="nav navbar-right panel_toolbox">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i
-                class="fa fa-ellipsis-h" style="font-size: 19px;"></i></a>
+                class="fa fa-gear" style="font-size: 19px;"></i></a>
         <ul class="dropdown-menu" role="menu">
             @if (isset($view_modal))
                 <li><a data-target-modal="{{ $view_modal->get('target') }}"
@@ -118,7 +118,7 @@
                 <li class="{{ isset($delete_permission) &&  $delete_permission=="1" ? '':'hidden' }}"><a
                         class="delete-confrim "
                         data-id={{ $delete->get('id') }}  href="{{ $delete->get('action' , 'javaqscrip:void(0)') }}"><i
-                            class="fa fa-trash "></i>&nbsp;&nbsp;Delete</a>
+                            class="fa fa-trash "></i>&nbsp;&nbsp;Remove</a>
                 </li>
                 @endif
 

@@ -25,9 +25,9 @@
                 <tr>
                     <td width="25%">
                         @if($setting->logo_img !='')
-                            <img src="{{ asset('public/' . config('constants.LOGO_FOLDER_PATH') . '/' . $setting->logo_img)}}">
+                            <img src="{{ asset('' . config('constants.LOGO_FOLDER_PATH') . '/' . $setting->logo_img)}}">
                         @else
-                            <img src="{{ asset('public/upload/logo.png') }}">
+                            <img src="{{ asset('upload/logo.png') }}">
                         @endif
                     </td>
                     <td width="75%" valign="top">

@@ -49,7 +49,7 @@
                  @if($image_logo->logo_img!='')
                 <img src="{{asset(config('constants.LOGO_FOLDER_PATH') .'/'. $image_logo->logo_img)}}" style="width: 308px;">
                 @else
-                <img src="{{ asset('public/upload/logo.png') }}" style="margin-bottom: 20px;">
+                <img src="{{ asset('upload/logo.png') }}" style="margin-bottom: 20px;">
                 @endif
               <h2> Reset Your Account </h2>
                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -61,12 +61,12 @@
                                     </span>
                                 @endif
               </div>
-         
+
               <div>
                      <button type="submit" class="btn btn-default">
                                    Send Password Reset Link
                                 </button>
-               
+
               </div>
 
               <div class="clearfix"></div>
@@ -77,7 +77,7 @@
                 <br />
 
                 <div>
- 
+
                   <p>©2019 All Rights Reserved. LawOffice</p>
                 </div>
               </div>

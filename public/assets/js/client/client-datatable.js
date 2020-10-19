@@ -37,6 +37,9 @@ var DatatableRemoteAjaxDemo = function () {
                     "data": "first_name"
                 },
                 {
+                    "data": "invitation_code"
+                },
+                {
                     "data": "mobile"
                 },
                 {

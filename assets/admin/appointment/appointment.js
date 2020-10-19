@@ -1,15 +1,15 @@
 // Validation
 
-$('#add_appointment').validate({   
+$('#add_appointment').validate({
         debug: false,
         //ignore: '.select2-search__field,:hidden:not("textarea,.files,select")',
             rules: {
                     mobile: {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 10,
-                        number: true
-                    },
+                    required: true,
+                    minlength: 6,
+                    maxlength: 20,
+                    number: true
+                },
                      date:"required",
                      time:"required",
                      new_client:"required",
@@ -27,7 +27,7 @@ $('#add_appointment').validate({
                      new_client: "Please enter client name.",
                      exists_client: "Please select client name."
         },
-        errorPlacement: function (error, element) {            
+        errorPlacement: function (error, element) {
             error.appendTo(element.parent()).addClass('text-danger');
         },
         submitHandler: function (e) {
@@ -40,4 +40,3 @@ $('#add_appointment').validate({
 
 
 
-  

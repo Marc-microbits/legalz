@@ -20,20 +20,20 @@ var FormControlsClient = {
                 },
                 mobile: {
                     required: true,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 },
                 alternate_no: {
                     required: false,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 },
                 reference_mobile: {
                     required: false,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 }
             },
@@ -51,8 +51,8 @@ var FormControlsClient = {
                 },
                 mobile: {
                     required: "Please enter mobile.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be maximum 20 digits.",
                     number: "please enter digit 0-9.",
                 },
                 alternate_no: {

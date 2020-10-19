@@ -32,7 +32,7 @@ Route::get('/clear-cache', function () {
 //---------------------------Country State City FIlter-----------------------//
 Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
 Route::get('/login-as-admin', 'AdminAuth\LoginController@loginAsAdmin')->name('loginAs.admin');
-Route::get('/login-as-staff', 'AdminAuth\LoginController@loginAsStaff')->name('loginAs.staff');
+Route::post('/login-as-staff', 'AdminAuth\LoginController@loginAsStaff')->name('loginAs.staff');
 
 Route::get('f/country', 'Admin\SerchController@getCountry')->name('get.country');
 Route::get('f/state', 'Admin\SerchController@getState')->name('get.state');

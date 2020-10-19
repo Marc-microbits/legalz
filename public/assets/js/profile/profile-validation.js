@@ -13,8 +13,8 @@ var FormControlsProfile = {
                 l_name: "required",
                 mobile: {
                     required: true,
-                    minlength: 10,
-                    maxlength: 10,
+                    minlength: 6,
+                    maxlength: 20,
                     number: true
                 },
                 address: "required",

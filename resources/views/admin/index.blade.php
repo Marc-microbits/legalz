@@ -379,7 +379,8 @@
     @endif
 @endsection
 @push('js')
-    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script>
+    <!-- <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script> -->
+    <script src="{{ asset('assets/admin/vendors/fullcalendar/dist/moment.min.js') }}"></script>
     <script src="{{ asset('assets/admin/vendors/fullcalendar/dist/fullcalendar.min.js') }}"></script>
     <script src="{{asset('assets/js/dashbord/dashbord-datatable.js')}}"></script>
 @endpush

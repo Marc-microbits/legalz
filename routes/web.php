@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::post('clients/data-list', 'ClientController@ClientList')->name('clients.list');
     Route::post('clients/data-status', 'ClientController@changeStatus')->name('clients.status');
     Route::post('check_client_email_exits', 'ClientController@check_client_email_exits')->name('check_client_email_exits');
+    Route::post('clients/delete-doc', 'ClientController@deleteDoc');
     Route::get('client/case-list/{id}', 'ClientController@caseDetail')->name('clients.case-list');
     Route::get('client/account-list/{id}', 'ClientController@AccountDetail')->name('clients.account-list');
 

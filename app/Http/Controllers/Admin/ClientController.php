@@ -297,6 +297,18 @@ class ClientController extends Controller
         return view('admin.client.view.client_detail', $data);
     }
 
+    public function deleteDoc(Request $request){
+        $client = AdvocateClient::findOrFail($request->id);
+        $docs = json_decode($client->documents, true);
+        $json = array();
+        foreach($docs as $doc){
+            if($doc != $request->doc){
+                array_push($json, $doc);
+            }
+        }
+        $client->documents = json_encode($json);
+        $client->save();
+    }
     /**
      * Show the form for editing the specified resource.
      *

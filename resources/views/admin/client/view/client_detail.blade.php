@@ -62,7 +62,7 @@
                                 </tr>
                                 <tr>
                                     <td>City</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->city->name }}</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->city_id }}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -94,6 +94,14 @@
 
                                 </tbody>
                             </table>
+                            Documents:<br/>
+                            @foreach(json_decode($client->documents) as $document)
+                                <div class="file">
+                                    {{$document}}
+                                    <a href="/upload/files/{{$document}}" target="_blank"><button class="btn btn-sm danger">View</button></a>
+                                    <button class="btn btn-sm danger delete-doc" data-doc="{{$document}}">Delete</button>
+                                </div>
+                            @endforeach
                         </div>
 
 
@@ -164,3 +172,28 @@
 
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function(){
+            $(".delete-doc").on('click', function(){
+                $this = $(this);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/clients/delete-doc',
+                    data: {
+                        'doc' : $(this).data('doc'),
+                        'id' : '{{$client->id}}'
+                    },
+                    success: function(e){
+                        $this.closest('.file').remove();
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

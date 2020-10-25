@@ -41,10 +41,13 @@
                             </div>
                         @endif
 
+                    <div class="repeater">
+                        <div data-repeater-list="parties_detail">
+                            <div data-repeater-item>
                         <div class="row">
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                                 <label for="fullname">Client <span class="text-danger">*</span></label>
-                                <select class="form-control" name="client_name" id="client_name">
+                                <select class="form-control client_name" name="client_name">
                                     <option value="">Select client</option>
                                     @foreach($client_list as $list)
                                         <option value="{{ $list->id}}">{{  $list->name}}</option>
@@ -61,9 +64,8 @@
                         </div>
 
 
-                        <div class="repeater">
-                            <div data-repeater-list="parties_detail">
-                                <div data-repeater-item>
+
+
                                     <div class="row">
 
                                         <div class="col-md-6">
@@ -174,10 +176,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                                 <br><br>
-                                <input type="radio" id="test3" name="priority" value="High">&nbsp;&nbsp;High &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="test4" name="priority" value="Medium" checked>&nbsp;&nbsp;Medium
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="test5" name="priority" value="Low">&nbsp;&nbsp;Low
+                                <input type="checkbox" id="test3" name="priority" value="Important">&nbsp;&nbsp;Important
                             </div>
                         </div>
 

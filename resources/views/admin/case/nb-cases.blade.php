@@ -78,7 +78,7 @@
                                 </li>
 
                                 <li role="presentation" class="{{(Request::is('admin/case-nb'))?'active':''}} ">
-                                    <a href="{{url('admin/case-nb')}}">No Board Cases</a>
+                                    <a href="{{url('admin/case-nb')}}">Contracts</a>
                                 </li>
                                 <li role="presentation" class="{{(Request::is('admin/case-archived'))?'active':''}} ">
                                     <a href="{{url('admin/case-archived')}}">Archived Cases</a>

@@ -19,6 +19,13 @@ var DatatableRemoteAjaxDemo = function () {
         t = $('#client_case_listDatatable').DataTable({
             "processing": true,
             "serverSide": true,
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             "stateSave": true,
             "lengthMenu": [10, 25, 50],
             "responsive": true,

@@ -650,8 +650,8 @@ class CaseRunningController extends Controller
             $case = new CourtCase();
 
             $case->advocate_id = "1";
-            $case->advo_client_id = $request->client_name;
-            $case->client_position = $request->position;
+            $case->advo_client_id = $request->input('parties_detail.' . $index . '.client_name');
+            $case->client_position = $request->input('parties_detail.' . $index . '.position');
             $case->party_name = $request->input('parties_detail.' . $index . '.party_name');
             $case->party_lawyer = $request->input('parties_detail.' . $index . '.party_advocate');
             $case->case_number = $request->case_no;
@@ -702,7 +702,8 @@ class CaseRunningController extends Controller
                         //echo  $request->input('parties_detail.'.$key.'.party_name').'=>'.'<br/>';
                         $party = new CasePartiesInvolves();
                         $party->court_case_id = $case->id;
-                        $party->position = $case->client_position;
+                        $party->client_id =  $request->input('parties_detail.' . $key . '.client_name');
+                        $party->position =  $request->input('parties_detail.' . $key . '.position');
                         $party->party_name = $request->input('parties_detail.' . $key . '.party_name');
                         $party->party_advocate = $request->input('parties_detail.' . $key . '.party_advocate');
                         $party->save();
@@ -737,14 +738,11 @@ class CaseRunningController extends Controller
     protected function validator_case(array $data)
     {
         return Validator::make($data, [
-            'client_name' => 'required',
-            'position' => 'required',
             'case_no' => 'required|max:190',
             'case_type' => 'required',
 
             'case_status' => 'required',
             'act' => 'required',
-            'priority' => 'required',
 
             'court_no' => 'required',
             'court_type' => 'required',

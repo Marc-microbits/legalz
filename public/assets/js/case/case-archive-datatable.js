@@ -18,6 +18,13 @@ var DatatableRemoteAjaxDemo = function () {
         t = $('#case_list').DataTable({
             "processing": true,
             "serverSide": true,
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             // "responsive":true,
             "order": [[0, "desc"]],
             "oLanguage": {sProcessing: "<div class='loader-container'><div id='loader'></div></div>"},

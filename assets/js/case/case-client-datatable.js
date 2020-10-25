@@ -24,6 +24,13 @@ var DatatableRemoteAjaxDemo = function () {
             "responsive": true,
             "oLanguage": {sProcessing: "<div class='loader-container'><div id='loader'></div></div>"},
             "width": 200,
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             // "iDisplayLength": 2,
             "ajax": {
                 "url": $('#client_case_listDatatable').attr('data-url'),

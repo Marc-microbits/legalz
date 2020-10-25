@@ -85,6 +85,16 @@ var FormControlsClient = {
 jQuery(document).ready(function () {
     FormControlsClient.init();
 
+    $('input[name=client_type]').on('change', function(){
+        if($(this).val() == "Individual"){
+            $("#individual_client").removeClass('hide').addClass('show');
+            $("#corporate_client").removeClass('show').addClass('hide');
+        }else{
+            $("#corporate_client").removeClass('hide').addClass('show');
+            $("#individual_client").removeClass('show').addClass('hide');
+        }
+    })
+
     //set initial state.
     $("#change_court_chk").on("click", function () {
         if ($(this).is(":checked")) {

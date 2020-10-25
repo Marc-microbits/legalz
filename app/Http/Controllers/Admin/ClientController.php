@@ -151,73 +151,129 @@ class ClientController extends Controller
      */
     public function store(StoreClient $request)
     {
+        $this->validate($request, [
+            'documents.*' => 'mimes:doc,pdf,docx,zip,jpg,jpeg,csv,xls,xlsx,png'
+        ]);
+
         $AdvocateClient = new AdvocateClient;
-        $AdvocateClient->prefix = $request->prefix;
-        $AdvocateClient->invitation_code = $request->client_code;
-        $AdvocateClient->first_name = $request->f_name;
-        $AdvocateClient->middle_name = $request->m_name;
-        $AdvocateClient->last_name = $request->l_name;
-        $AdvocateClient->gender = $request->gender;
-        $AdvocateClient->email = $request->email;
-        $AdvocateClient->mobile = $request->mobile;
-        $AdvocateClient->alternate_no = $request->alternate_no;
-        $AdvocateClient->address = $request->address;
-        $AdvocateClient->country_id = $request->country;
-        $AdvocateClient->state_id = $request->state;
-        $AdvocateClient->city_id = $request->city_id;
         $AdvocateClient->client_type = $request->type;
-        $AdvocateClient->reference_name = $request->reference_name;
+        if($request->client_type == "Individual"){
+            $AdvocateClient->prefix = $request->prefix;
+            $AdvocateClient->invitation_code = $request->client_code;
+            $AdvocateClient->first_name = $request->f_name;
+            $AdvocateClient->middle_name = $request->m_name;
+            $AdvocateClient->last_name = $request->l_name;
+            $AdvocateClient->gender = $request->gender;
+            $AdvocateClient->email = $request->email;
+            $AdvocateClient->mobile = $request->mobile;
+            $AdvocateClient->alternate_no = $request->alternate_no;
+            $AdvocateClient->address = $request->address;
+            $AdvocateClient->country_id = $request->country;
+            $AdvocateClient->state_id = $request->state;
+            $AdvocateClient->city_id = $request->city_id;
+            $AdvocateClient->reference_name = $request->reference_name;
+        }else{
+            $AdvocateClient->prefix = null;
+            $AdvocateClient->invitation_code = $request->client_code;
+            $AdvocateClient->first_name = $request->companyName;
+            $AdvocateClient->company_type = $request->companyType;
+            $AdvocateClient->CRNumber = $request->CRNumber;
+            $AdvocateClient->financial_number = $request->financialNumber;
+            $AdvocateClient->commercial_register = $request->commercialRegister;
+            $AdvocateClient->mobile = $request->mobile_company;
+            $AdvocateClient->alternate_no = $request->alternate_company;
+            $AdvocateClient->address = $request->c_address;
+            $AdvocateClient->country_id = $request->c_country;
+            $AdvocateClient->state_id = $request->c_state;
+            $AdvocateClient->city_id = $request->c_city_id;
+            $AdvocateClient->management_position = $request->m_position;
+            $AdvocateClient->management_name = $request->m_position;
+            $AdvocateClient->management_number = $request->m_number;
+            $AdvocateClient->management_email = $request->m_email;
+            $AdvocateClient->management_address = $request->m_address;
+            $AdvocateClient->reference_name = $request->reference_name;
+        }
+        $AdvocateClient->client_type = $request->client_type;
+
+        if($request->hasfile('documents'))
+        {
+            $data = [];
+            foreach($request->file('documents') as $file)
+            {
+                $name = time().rand().'.'.$file->extension();
+                $file->move(public_path().'/upload/files/', $name);
+                array_push($data, $name);
+            }
+            $AdvocateClient->documents = json_encode($data);
+        }
         $AdvocateClient->save();
         $clientId = $AdvocateClient->id;
 
-        $user = new Admin();
-        $user->name = $request->f_name. " ".  $request->m_name. ' '. $request->l_name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->invitation_code);
-        $user->first_name = $request->f_name;
-        $user->last_name = $request->l_name;
-        $user->mobile = $request->mobile;
-        $user->is_activated = 1;
-        $user->is_user_type = "STAFF";
-        $user->is_active = "yes";
-        $user->is_expired = "no";
-        $user->user_type = "User";
-        $user->invitation_code = $request->invitation_code;
-        $user->save();
-
-        if ($request->type == "single") {
-            if (isset($request['group-a']) && count($request['group-a']) > 0) {
-                foreach ($request['group-a'] as $key => $value) {
-                    if (!empty($value['firstname']) && !empty($value['middlename']) && !empty($value['lastname']) && !empty($value['mobile_client']) && !empty($value['address_client'])) {
-                        $ClientPartiesInvoive = new ClientPartiesInvoive();
-                        $ClientPartiesInvoive->client_id = $clientId;
-                        $ClientPartiesInvoive->party_firstname = $value['firstname'];
-                        $ClientPartiesInvoive->party_middlename = $value['middlename'];
-                        $ClientPartiesInvoive->party_lastname = $value['lastname'];
-                        $ClientPartiesInvoive->party_mobile = $value['mobile_client'];
-                        $ClientPartiesInvoive->party_address = $value['address_client'];
-                        $ClientPartiesInvoive->save();
-                    }
-                }
-            }
-        } else if ($request->type == "multiple") {
-            if (isset($request['group-b']) && count($request['group-b']) > 0) {
-                foreach ($request['group-b'] as $key => $value) {
-                    if (!empty($value['firstname']) && !empty($value['middlename']) && !empty($value['lastname']) && !empty($value['mobile_client']) && !empty($value['address_client']) && !empty($value['advocate_name'])) {
-                        $ClientPartiesInvoive = new ClientPartiesInvoive();
-                        $ClientPartiesInvoive->client_id = $clientId;
-                        $ClientPartiesInvoive->party_firstname = $value['firstname'];
-                        $ClientPartiesInvoive->party_middlename = $value['middlename'];
-                        $ClientPartiesInvoive->party_lastname = $value['lastname'];
-                        $ClientPartiesInvoive->party_mobile = $value['mobile_client'];
-                        $ClientPartiesInvoive->party_address = $value['address_client'];
-                        $ClientPartiesInvoive->party_advocate = $value['advocate_name'];
-                        $ClientPartiesInvoive->save();
-                    }
-                }
-
-            }
+        if($request->client_type == "Individual"){
+            $user = new Admin();
+            $user->name = $request->f_name. " ".  $request->m_name. ' '. $request->l_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->invitation_code);
+            $user->first_name = $request->f_name;
+            $user->last_name = $request->l_name;
+            $user->mobile = $request->mobile;
+            $user->is_activated = 1;
+            $user->is_user_type = "STAFF";
+            $user->is_active = "yes";
+            $user->is_expired = "no";
+            $user->user_type = "User";
+            $user->invitation_code = $request->invitation_code;
+            $user->save();
+        }else{
+            $user = new Admin();
+            $user->name = $request->companyName;
+            $user->email = $request->m_email;
+            $user->password = bcrypt($request->invitation_code);
+            $user->first_name = $request->companyName;
+            $user->mobile = $request->mobile_company;
+            $user->is_activated = 1;
+            $user->is_user_type = "STAFF";
+            $user->is_active = "yes";
+            $user->is_expired = "no";
+            $user->user_type = "User";
+            $user->invitation_code = $request->invitation_code;
+            $user->save();
         }
+
+
+//        if ($request->type == "single") {
+//            if (isset($request['group-a']) && count($request['group-a']) > 0) {
+//                foreach ($request['group-a'] as $key => $value) {
+//                    if (!empty($value['firstname']) && !empty($value['middlename']) && !empty($value['lastname']) && !empty($value['mobile_client']) && !empty($value['address_client'])) {
+//                        $ClientPartiesInvoive = new ClientPartiesInvoive();
+//                        $ClientPartiesInvoive->client_id = $clientId;
+//                        $ClientPartiesInvoive->party_firstname = $value['firstname'];
+//                        $ClientPartiesInvoive->party_middlename = $value['middlename'];
+//                        $ClientPartiesInvoive->party_lastname = $value['lastname'];
+//                        $ClientPartiesInvoive->party_mobile = $value['mobile_client'];
+//                        $ClientPartiesInvoive->party_address = $value['address_client'];
+//                        $ClientPartiesInvoive->save();
+//                    }
+//                }
+//            }
+//        } else if ($request->type == "multiple") {
+//            if (isset($request['group-b']) && count($request['group-b']) > 0) {
+//                foreach ($request['group-b'] as $key => $value) {
+//                    if (!empty($value['firstname']) && !empty($value['middlename']) && !empty($value['lastname']) && !empty($value['mobile_client']) && !empty($value['address_client']) && !empty($value['advocate_name'])) {
+//                        $ClientPartiesInvoive = new ClientPartiesInvoive();
+//                        $ClientPartiesInvoive->client_id = $clientId;
+//                        $ClientPartiesInvoive->party_firstname = $value['firstname'];
+//                        $ClientPartiesInvoive->party_middlename = $value['middlename'];
+//                        $ClientPartiesInvoive->party_lastname = $value['lastname'];
+//                        $ClientPartiesInvoive->party_mobile = $value['mobile_client'];
+//                        $ClientPartiesInvoive->party_address = $value['address_client'];
+//                        $ClientPartiesInvoive->party_advocate = $value['advocate_name'];
+//                        $ClientPartiesInvoive->save();
+//                    }
+//                }
+//
+//            }
+//        }
         return redirect()->route('clients.index')->with('success', "Client added successfully.");
 
 

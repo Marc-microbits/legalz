@@ -11,7 +11,6 @@ var FormControlsClient = {
         var btn = $("form :submit");
         $("#add_case").validate({
             rules: {
-                client_name: "required",
                 party_name: "required",
                 party_advocate: "required",
                 case_no: "required",
@@ -30,7 +29,6 @@ var FormControlsClient = {
 
             },
             messages: {
-                client_name: "Please enter client name.",
                 party_name: "Please enter name.",
                 party_advocate: "Please enter advocate name.",
                 case_no: "Please enter case number.",
@@ -130,7 +128,7 @@ jQuery(document).ready(function () {
         allowClear: true,
         placeholder: 'Select Judge Type'
     });
-    $("#client_name").select2({
+    $(".client_name").select2({
         allowClear: true,
         placeholder: 'Select Client Name'
     });
@@ -157,8 +155,12 @@ jQuery(document).ready(function () {
         // have $(this).show() called on it.
         show: function () {
             $(this).slideDown();
+            $(this).find('.client_name ~ span').remove();
             var test = $('input[name=position]:checked').val();
-
+            $(".client_name").select2({
+                allowClear: true,
+                placeholder: 'Select Client Name'
+            });
             if (test == 'Respondent') {
 
                 $('.position_name').html('Petitioner Name');

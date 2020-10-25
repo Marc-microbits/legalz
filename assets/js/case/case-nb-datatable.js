@@ -17,6 +17,13 @@ var DatatableRemoteAjaxDemo = function () {
         });
         t = $('#case_list').DataTable({
             "processing": true,
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             "serverSide": true,
             // "responsive":true,
             "order": [[0, "desc"]],

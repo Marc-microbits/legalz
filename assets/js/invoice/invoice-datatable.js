@@ -23,6 +23,13 @@ var DatatableRemoteAjaxDemo = function () {
                 "type": "POST",
                 "data": {_token: token}
             },
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             "columns": [
                 {"data": "id"},
                 {"data": "invoice_no"},

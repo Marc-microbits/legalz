@@ -35,7 +35,9 @@
           rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="{{asset('assets/admin/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{asset('assets/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+{{--    <link href="{{asset('assets/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">--}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/b-print-1.6.5/datatables.min.css"/>
+
     <link href="{{ asset('assets/admin/vendors/bootstrap-datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css') }}" rel="stylesheet">
 </head>
@@ -115,8 +117,10 @@
 <script src="{{ asset('assets/admin/js/sweetalert2.all.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{asset('assets/admin/build/js/custom.js') }}"></script>
-<script src="{{asset('assets/admin/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{asset('assets/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-html5-1.6.5/b-print-1.6.5/datatables.min.js"></script>
 <script
         src="{{asset('assets/admin/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script src="{{ asset('assets/admin/js/jquery.validate.min.js') }}"></script>

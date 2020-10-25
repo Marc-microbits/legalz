@@ -21,6 +21,13 @@ var DatatableRemoteAjaxDemo = function () {
             "stateSave": true,
             "lengthMenu": [10, 25, 50],
             "responsive": true,
+            dom: 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             "oLanguage": {sProcessing: "<div class='loader-container'><div id='loader'></div></div>"},
             "width": 200,
             // "iDisplayLength": 2,

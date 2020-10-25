@@ -68,7 +68,7 @@
                             <h4><a href="">Important Cases</a></h4>
                         </div>
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <h4><a href="">No Board Cases</a></h4>
+                            <h4><a href="">Contracts Cases</a></h4>
                         </div>
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <h4><a href="">Archived Cases</a></h4>

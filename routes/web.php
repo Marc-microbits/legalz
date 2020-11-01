@@ -37,6 +37,7 @@ Route::post('/login-as-staff', 'AdminAuth\LoginController@loginAsStaff')->name('
 Route::get('f/country', 'Admin\SerchController@getCountry')->name('get.country');
 Route::get('f/state', 'Admin\SerchController@getState')->name('get.state');
 Route::get('f/city', 'Admin\SerchController@getCity')->name('get.city');
+Route::get('f/company', 'Admin\SerchController@getCompanyType')->name('get.companyType');
 
 Route::post('common_check_exist', 'Controller@common_check_exist')->name('common_check_exist');
 
@@ -105,6 +106,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::post('court-type-list', 'CourtTypeController@courtTypeList')->name('court.type.list');
     Route::post('court-type-list/CourtTypeController', 'CourtTypeController@changeStatus')->name('court.type.courttype.status');
 
+    Route::resource('company-type', 'CompanyTypeController');
+    Route::post('company-type-list', 'CompanyTypeController@companyTypeList')->name('company.type.list');
+    Route::post('company-type-list/CompanyTypeController', 'CompanyTypeController@changeStatus')->name('company.type.companytype.status');
     //setting court
     Route::resource('court', 'CourtController');
     Route::post('court-list', 'CourtController@cashList')->name('court.list');
@@ -152,7 +156,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
 
     //---------------------------Case Running-----------------//
     Route::resource('case-running', 'CaseRunningController');
+    Route::get('case-procedure/create', 'CaseRunningController@procedureCreate')->name('case-procedure.create');
+    Route::post('case-procedure', 'CaseRunningController@procedureStore')->name('case-procedure.store');
+    Route::get('case-procedure', 'CaseRunningController@procedureIndex')->name('case-procedure.index');
+    Route::get('case-contract/create', 'CaseRunningController@contractCreate')->name('case-contract.create');
     Route::post('allCaseList', 'CaseRunningController@allCaseList');
+    Route::post('procedureCaseList', 'CaseRunningController@procedureCaseList');
     Route::get('select2Case', 'CaseRunningController@select2Case')->name('select2Case');
     Route::get('case-list/{id}', 'CaseRunningController@caseListByClientId');
     Route::post('client/client_case_list', 'CaseRunningController@client_case_list')->name('client.case_view.list');

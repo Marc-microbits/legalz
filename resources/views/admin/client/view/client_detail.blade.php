@@ -54,25 +54,16 @@
                                 </tr>
                                 <tr>
                                     <td>Country</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->country->name }}</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->country->name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <td>State</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->state->name }}</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->state->name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <td>City</td>
                                     <td class="fs15 fw700 text-right">{{ $client->city_id }}</td>
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-md-6 hidden-small">
-
-                            <table class="countries_list">
-                                <tbody>
-
                                 <tr>
                                     <td>Email</td>
                                     <td class="fs15 fw700 text-right s">{{ $client->email ?? '' }}</td>
@@ -94,12 +85,14 @@
 
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-md-6">
                             Documents:<br/>
                             @foreach(json_decode($client->documents) as $document)
-                                <div class="file">
-                                    {{$document}}
-                                    <a href="/upload/files/{{$document}}" target="_blank"><button class="btn btn-sm danger">View</button></a>
-                                    <button class="btn btn-sm danger delete-doc" data-doc="{{$document}}">Delete</button>
+                                @php $ext = 'png'; if(substr($document, -3) == 'pdf') $ext = 'pdf'; @endphp
+                                <div class="file" style="position: relative;float: left;width: fit-content;margin-right: 20px;">
+                                    <a href="/upload/files/{{$document}}" target="_blank"><img src="/assets/images/{{$ext == 'pdf' ? 'pdf-icon.png' : 'photo-icon.png'}}" style="width: 60px;"/></a>
+                                    <i class="fa fa-close delete-doc" data-doc="{{$document}}" style="position: absolute;top: 0;left: 100%;font-size: 12px;color: black;cursor: pointer;"></i>
                                 </div>
                             @endforeach
                         </div>

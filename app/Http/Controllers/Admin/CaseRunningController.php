@@ -88,6 +88,18 @@ class CaseRunningController extends Controller
 
 
     }
+    public function procedureIndex()
+    {
+
+        $user = \Auth::guard('admin')->user();
+        if (!$user->can('case_list')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('admin.case.procedure');
+
+
+    }
 
     public function caseImportant()
     {
@@ -387,7 +399,7 @@ class CaseRunningController extends Controller
         } elseif ($request->case_listing == 'NB') {
             $cond = array('case.is_nb' => 'Yes', 'case.is_active' => 'Yes');
         } elseif ($request->case_listing == 'important') {
-            $cond = array('case.is_active' => 'Yes', 'case.is_nb' => 'No', 'priority' => 'High');
+            $cond = array('case.is_active' => 'Yes', 'case.is_nb' => 'No', 'priority' => 'Important');
         } else {
             $cond = array('case.is_active' => 'No');
             $archived_case .= 'Yes';
@@ -575,6 +587,195 @@ class CaseRunningController extends Controller
 
     }
 
+    public function procedureCaseList(Request $request)
+    {
+        // dd($request->all());
+
+        $user = \Auth::guard('admin')->user();
+        $isEdit = $user->can('case_edit');
+        $isDelete = $user->can('case_delete');
+
+
+        $checkTask = LogActivity::CheckuserType();
+
+        // Listing column to show
+        $columns = array(
+            0 => 'case_id',
+            1 => 'first_name',
+            2 => 'last_login_at',
+            3 => 'is_active'
+        );
+
+
+        $archived_case = '';
+
+        $cond = array('priority' => 'procedure');
+
+
+        $totalData = DB::table('court_cases AS case')
+            ->leftJoin('advocate_clients AS ac', 'ac.id', '=', 'case.advo_client_id')
+            ->leftJoin('case_types AS ct', 'ct.id', '=', 'case.case_types')
+            ->leftJoin('case_types AS cst', 'cst.id', '=', 'case.case_sub_type')
+            ->leftJoin('case_statuses AS s', 's.id', '=', 'case.case_status')
+            ->leftJoin('court_types AS t', 't.id', '=', 'case.court_type')
+            ->leftJoin('courts AS c', 'c.id', '=', 'case.court')
+            ->leftJoin('judges AS j', 'j.id', '=', 'case.judge_type')
+            ->select('case.id AS case_id', 'case.next_date', 'case.client_position', 'case.party_name', 'case.party_lawyer', 'case.registration_number AS case_number', 'case.act', 'case.priority',
+                'case.court_no', 'case.judge_name', 'ct.case_type_name AS caseType', 'cst.case_type_name AS caseSubType',
+                's.case_status_name', 't.court_type_name', 'c.court_name', 'j.judge_name', 'ac.first_name', 'ac.middle_name', 'ac.last_name', 'case.updated_by', 'ac.id AS advo_client_id', 'case.is_active'
+            )
+            ->where($cond)
+            ->when($checkTask['type'] == "User", function ($query) use ($checkTask) {
+                $query->leftJoin('case_members AS cm', 'cm.case_id', '=', 'case.id');
+                $query->where('cm.employee_id', $checkTask['id']);
+                return $query;
+            })
+            ->count();
+
+        $totalRec = $totalData;
+
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        $search = $request->input('search.value');
+
+
+        $customcollections = DB::table('court_cases AS case')
+            ->leftJoin('advocate_clients AS ac', 'ac.id', '=', 'case.advo_client_id')
+            ->leftJoin('case_types AS ct', 'ct.id', '=', 'case.case_types')
+            ->leftJoin('case_types AS cst', 'cst.id', '=', 'case.case_sub_type')
+            ->leftJoin('case_statuses AS s', 's.id', '=', 'case.case_status')
+            ->leftJoin('court_types AS t', 't.id', '=', 'case.court_type')
+            ->leftJoin('courts AS c', 'c.id', '=', 'case.court')
+            ->leftJoin('judges AS j', 'j.id', '=', 'case.judge_type')
+            ->select('case.id AS case_id', 'case.next_date', 'case.client_position', 'case.party_name','case.details','case.renewal_date', 'case.party_lawyer', 'case.registration_number AS case_number', 'case.act', 'case.priority',
+                'case.court_no', 'case.judge_name', 'ct.case_type_name AS caseType', 'cst.case_type_name AS caseSubType',
+                's.case_status_name', 't.court_type_name', 'c.court_name', 'j.judge_name', 'ac.first_name', 'ac.middle_name', 'ac.last_name', 'case.updated_by', 'ac.id AS advo_client_id', 'case.is_nb', 'case.is_active'
+            )
+            ->where($cond)
+            ->when($request->input('date_from'), function ($query, $iterm) {
+
+                return $query->whereDate('case.next_date', '>=', date('Y-m-d', strtotime(LogActivity::commonDateFromat($iterm))));
+            })
+            ->when($request->input('date_to'), function ($query, $iterm) {
+                return $query->whereDate('case.next_date', '<=', date('Y-m-d', strtotime(LogActivity::commonDateFromat($iterm))));
+            })
+            ->when($checkTask['type'] == "User", function ($query) use ($checkTask) {
+                $query->leftJoin('case_members AS cm', 'cm.case_id', '=', 'case.id');
+                $query->where('cm.employee_id', $checkTask['id']);
+                return $query;
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('ac.last_name', 'LIKE', "%{$search}%")
+                    ->orWhere('ac.middle_name', 'LIKE', "%{$search}%")
+                    ->orWhere('ac.first_name', 'LIKE', "%{$search}%")
+                    ->orWhere('case.case_number', 'LIKE', "%{$search}%")
+                    ->orWhere('ct.case_type_name', 'LIKE', "%{$search}%")
+                    ->orWhere('c.court_name', 'LIKE', "%{$search}%")
+                    ->orWhere('case.court_no', 'LIKE', "%{$search}%")
+                    ->orWhere('case.judge_name', 'LIKE', "%{$search}%");
+            });
+
+
+        // dd($totalData);
+
+        $totalFiltered = $customcollections->count();
+
+        $customcollections = $customcollections->offset($start)->limit($limit)->orderBy($order, $dir)->get();
+
+        $data = [];
+
+        foreach ($customcollections as $key => $case) {
+
+            $case_list = url('admin/case-list/' . $case->advo_client_id);
+
+            if ($case->client_position == 'Petitioner') {
+                $first = $case->first_name . '&nbsp;' . $case->middle_name . '&nbsp;' . $case->last_name;
+                $second = $case->party_name;
+            } else {
+                $first = $case->party_name;
+                $second = $case->first_name . '&nbsp;' . $case->middle_name . '&nbsp;' . $case->last_name;
+            }
+
+            $class = ($case->priority == 'High') ? 'fa fa-star' : (($case->priority == 'Medium') ? 'fa fa-star-half-o' : 'fa fa-star-o');
+
+
+            if ($isEdit == "1") {
+
+                if ($case->is_nb == 'Yes' || $case->is_active == 'No') {
+                    $priorityModal = '<a class="title text-primary" href="javascript:void(0);"></a>';
+                } else {
+                    $priorityModal = '<a  class="title text-primary" href="javascript:void(0);" onclick="change_case_important(' . $case->case_id . ')"><i class="' . $class . '" aria-hidden="true"></i></a>';
+                }
+
+            } else {
+
+                if ($case->is_nb == 'Yes' || $case->is_active == 'No') {
+                    $priorityModal = '<a class="title text-primary" href="javascript:void(0);"></a>';
+                } else {
+                    $priorityModal = '<a class="title text-primary" href="javascript:void(0);"><i class="' . $class . '" aria-hidden="true"></i></a>';
+                }
+
+            }
+
+
+            if (empty($request->input('search.value'))) {
+                $final = $totalRec - $start;
+                $row['id'] = $final;
+                $totalRec--;
+            } else {
+                $start++;
+                $row['id'] = $start;
+            }
+
+
+            $members = $this->getMembers($case->case_id);
+            // dd(  $members);
+
+            $row['name'] = '<div style="font-size:15px;"  class="clinthead text-primary">' . $priorityModal . ''
+                . '&nbsp;<a class="title text-primary"  href="' . $case_list . '">' . $case->first_name . '&nbsp;' . $case->middle_name . '&nbsp;' . $case->last_name . '</a></div>
+                                        ' . $members;
+
+            $row['details'] = '<p class="currenttittle">' . $case->details . '</p>';
+
+            $row['renewal_date'] = '<p class="currenttittle">' . date(LogActivity::commonDateFromatType(), strtotime($case->renewal_date)) . '</p><small class="currenttittle">' . $this->getLoginUserNameById($case->updated_by) . '</small>';
+            //$nestedData['next_date'] = '<p class="currenttittle">'.date('d-m-Y',strtotime($case->next_date)).'<p>'.'<a class="btn btn-link" href="'.$nextDate.'">Add Next Date</a>';
+
+
+            if ($isEdit == "1" || $isDelete == "1") {
+                $row['options'] = $this->action([
+                    'view' => route('case-running.show', $case->case_id),
+                    'edit' => route('case-running.edit', $case->case_id),
+                    'delete_permission' => $isDelete,
+                    'edit_permission' => $isEdit,
+                ]);
+
+            } else {
+                $row['options'] = $this->action([
+                    'view' => route('case-running.show', $case->case_id),
+
+                ]);
+
+            }
+
+
+            $data[] = $row;
+
+        }
+
+        $json_data = array(
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data,
+        );
+
+        return response()->json($json_data);
+
+    }
+
     public function getMembers($id)
     {
 
@@ -629,6 +830,31 @@ class CaseRunningController extends Controller
 
 
         return view('admin.case.add_case', $data);
+    }
+
+    public function procedureCreate()
+    {
+        $user = \Auth::guard('admin')->user();
+        if (!$user->can('case_add')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $data['client_list'] = AdvocateClient::where('is_active', 'Yes')->orderBy('first_name', 'asc')->get();
+
+        return view('admin.case.add_procedure', $data);
+    }
+
+    public function procedureStore(Request $request)
+    {
+        $case = new CourtCase();
+        $case->advocate_id = "1";
+        $case->advo_client_id = $request->client_name;
+        $case->details = $request->procedureDetails;
+        $case->renewal_date = $request->renewalDate;
+        $case->priority = 'procedure';
+        $case->save();
+
+        return redirect()->route('case-running.index')->with('success', "Procedure added successfully.");
     }
 
     /**
@@ -738,21 +964,10 @@ class CaseRunningController extends Controller
     protected function validator_case(array $data)
     {
         return Validator::make($data, [
-            'case_no' => 'required|max:190',
-            'case_type' => 'required',
-
-            'case_status' => 'required',
-            'act' => 'required',
-
             'court_no' => 'required',
             'court_type' => 'required',
             'court_name' => 'required',
             'judge_type' => 'required',
-
-            'filing_number' => 'required|max:190',
-            'filing_date' => 'required',
-            'registration_number' => 'required',
-            'registration_date' => 'required',
 
         ]);
     }

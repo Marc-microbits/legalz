@@ -18,8 +18,8 @@ $('#add_appointment').validate({
         messages: {
            mobile: {
                         required: "Please enter mobile.",
-                        minlength: "mobile must be 10 digit.",
-                        maxlength: "mobile must be 10 digit.",
+                        minlength: "Mobile must be at least 6 digits.",
+                        maxlength: "Mobile must be max 20 digits.",
                         number: "please enter digit 0-9.",
                     },
                      date: "Please select date.",

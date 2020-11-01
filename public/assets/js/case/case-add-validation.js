@@ -13,38 +13,10 @@ var FormControlsClient = {
             rules: {
                 party_name: "required",
                 party_advocate: "required",
-                case_no: "required",
-                case_type: "required",
-                case_status: "required",
-                act: "required",
-                court_type: "required",
-                next_date: "required",
-                court_no: "required",
-                court_name: "required",
-                judge_type: "required",
-                filing_number: "required",
-                filing_date: "required",
-                registration_number: "required",
-                registration_date: "required",
-
             },
             messages: {
                 party_name: "Please enter name.",
                 party_advocate: "Please enter advocate name.",
-                case_no: "Please enter case number.",
-                case_type: "Please select case type.",
-                case_status: "Please select stage of case .",
-                act: "Please enter act.",
-                court_type: "Please select court type.",
-                next_date: "Please select first hearing date.",
-                court_no: "Please enter court number.",
-                court_name: "Please enter court name.",
-                judge_type: "Please select judge type.",
-                filing_number: "Please enter filing number.",
-                filing_date: "Please select filing date.",
-                registration_number: "Please enter registartion number.",
-                registration_date: "Please select registartion date.",
-
             },
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent()).addClass('text-danger');
@@ -87,11 +59,11 @@ jQuery(document).ready(function () {
 
     $('input[type=radio][name=position]').on('change', function () {
         if (this.value == 'Respondent') {
-            $('.position_name').html('Petitioner Name');
-            $('.position_advo').html('Petitioner Advocate');
+            $(this).closest('.row').siblings('.row').find('.position_name').html('Petitioner Name');
+            $(this).closest('.row').siblings('.row').find('.position_advo').html('Petitioner Advocate');
         } else if (this.value == 'Petitioner') {
-            $('.position_name').html('Respondent Name');
-            $('.position_advo').html('Respondent Advocate');
+            $(this).closest('.row').siblings('.row').find('.position_name').html('Respondent Name');
+            $(this).closest('.row').siblings('.row').find('.position_advo').html('Respondent Advocate');
         }
     });
 
@@ -170,6 +142,16 @@ jQuery(document).ready(function () {
                 $('.position_name').html('Respondent Name');
                 $('.position_advo').html('Respondent Advocate');
             }
+
+            $('.client-detail-radio').on('change', function () {
+                if (this.value == 'Respondent') {
+                    $(this).closest('.row').siblings('.row').find('.position_name').html('Petitioner Name');
+                    $(this).closest('.row').siblings('.row').find('.position_advo').html('Petitioner Advocate');
+                } else if (this.value == 'Petitioner') {
+                    $(this).closest('.row').siblings('.row').find('.position_name').html('Respondent Name');
+                    $(this).closest('.row').siblings('.row').find('.position_advo').html('Respondent Advocate');
+                }
+            });
         },
         // (Optional)
         // "hide" is called when a user clicks on a data-repeater-delete

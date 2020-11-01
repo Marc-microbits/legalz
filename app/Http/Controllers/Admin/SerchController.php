@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\CompanyType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Country;
@@ -29,7 +30,23 @@ class SerchController extends Controller
 
     }
 
-    
+    public function getCompanyType(Request $request)
+    {
+
+        $search = $request->get('search');
+        $id = $request->get('id');
+
+        $data = CompanyType::when($id, function ($query, $id) {
+            $query->where('id', $id);
+        })
+            ->where('company_type_name', 'like', '%' . $search . '%')
+            ->get();
+
+        return response()->json($data->toArray());
+
+    }
+
+
     public function getState(Request $request)
     {
 
@@ -41,11 +58,11 @@ class SerchController extends Controller
         })
         ->where('name', 'like', '%' . $search . '%')
         ->get();
-        
+
         return response()->json($data->toArray());
     }
 
-    
+
     public function getCity(Request $request)
     {
 
@@ -56,11 +73,11 @@ class SerchController extends Controller
             $query->where('state_id', $id);
         })
         ->where('name', 'like', '%' . $search . '%')
-        ->get();   
+        ->get();
         return response()->json($data->toArray());
 
     }
-    
+
     public function getCategory(Request $request)
     {
 
@@ -72,11 +89,11 @@ class SerchController extends Controller
         })
         ->where('name', 'like', '%' . $search . '%')
         ->get();
-       
+
         return response()->json($data->toArray());
 
     }
-    
+
 
     public function getSeries(Request $request)
     {
@@ -89,7 +106,7 @@ class SerchController extends Controller
         })
         ->where('series_name', 'like', '%' . $search . '%')
         ->get();
-       
+
         return response()->json($data->toArray());
 
     }

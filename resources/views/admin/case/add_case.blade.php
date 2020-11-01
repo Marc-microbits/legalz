@@ -57,9 +57,9 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                                 <br><br>
-                                <input type="radio" id="test1" name="position" value="Petitioner" checked>&nbsp;&nbsp;Petitioner
+                                <input type="radio" id="test1" class="client-detail-radio" name="position" value="Petitioner" checked>&nbsp;&nbsp;Petitioner
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="test2" name="position" value="Respondent">&nbsp;&nbsp;Respondent
+                                <input type="radio" id="test2" class="client-detail-radio" name="position" value="Respondent">&nbsp;&nbsp;Respondent
                             </div>
                         </div>
 
@@ -142,12 +142,12 @@
                         <div class="row">
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Case No <span class="text-danger">*</span></label>
+                                <label for="fullname">Case No</label>
                                 <input type="text" id="case_no" name="case_no" class="form-control">
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Case Type <span class="text-danger">*</span></label>
+                                <label for="fullname">Case Type</label>
                                 <select class="form-control" id="case_type" name="case_type"
                                         onchange="getCaseSubType(this.value);">
                                     <option value="">Select case type</option>
@@ -158,7 +158,7 @@
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Case Sub Type <span class="text-danger"></span></label>
+                                <label for="fullname">Case Sub Type</label>
                                 <select class="form-control" id="case_sub_type" name="case_sub_type"></select>
                             </div>
 
@@ -166,7 +166,7 @@
 
                         <div class="row">
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Stage of Case <span class="text-danger">*</span></label>
+                                <label for="fullname">Stage of Case</label>
                                 <select class="form-control" id="case_status" name="case_status">
                                     <option value="">Select case status</option>
                                     @foreach($caseStatuses as $caseStatus)
@@ -182,15 +182,15 @@
 
                         <div class="row">
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Act <span class="text-danger">*</span></label>
+                                <label for="fullname">Act</label>
                                 <input type="text" id="act" name="act" class="form-control">
                             </div>
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Filing Number <span class="text-danger">*</span></label>
+                                <label for="fullname">Filing Number</label>
                                 <input type="text" id="filing_number" name="filing_number" class="form-control">
                             </div>
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Filing date <span class="text-danger">*</span></label>
+                                <label for="fullname">Filing date</label>
                                 <input type="text" id="filing_date" name="filing_date"
                                        class="form-control datetimepickerfilingdate" readonly="">
                             </div>
@@ -198,29 +198,29 @@
 
                         <div class="row">
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Registration Number <span class="text-danger">*</span></label>
+                                <label for="fullname">Registration Number</label>
                                 <input type="text" id="registration_number" name="registration_number"
                                        class="form-control">
                             </div>
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Registration date <span class="text-danger">*</span></label>
+                                <label for="fullname">Registration date</label>
                                 <input type="text" id="filiregistration_dateng_date" name="registration_date"
                                        class="form-control datetimepickerregdate" readonly="">
                             </div>
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">First Hearing Date <span class="text-danger">*</span></label>
+                                <label for="fullname">First Hearing Date</label>
                                 <input type="text" id="next_date" name="next_date"
                                        class="form-control datetimepickernextdate" readonly="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">CNR Number <span class="text-danger"></span></label>
+                                <label for="fullname">CNR Number</label>
                                 <input type="text" id="cnr_number" name="cnr_number" class="form-control">
                             </div>
                             <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Description <span class="text-danger"></span></label>
-                                <textarea id="description" name="description" class="form-control"></textarea>
+                                <label for="fullname">Description</label>
+                                <textarea id="description" name="description" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -236,7 +236,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>FIR Details</h2>
+                        <h2>First Investigation Report Details</h2>
 
                         <div class="clearfix"></div>
                     </div>
@@ -254,13 +254,13 @@
                         <div class="row">
 
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">FIR Number <span class="text-danger"></span></label>
+                                <label for="fullname">First Investigation Report Number <span class="text-danger"></span></label>
                                 <input type="text" id="fir_number" name="fir_number" class="form-control">
                             </div>
 
 
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">FIR Date <span class="text-danger"></span></label>
+                                <label for="fullname">First Investigation Report Date <span class="text-danger"></span></label>
                                 <input type="text" id="fir_date" name="fir_date"
                                        class="form-control datetimepickerregdate" readonly="">
                             </div>

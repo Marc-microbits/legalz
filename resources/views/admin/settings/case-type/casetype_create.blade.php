@@ -18,9 +18,9 @@
                     <div id="form-errors"></div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <label for="case_type">Case Type </label>
+                            <label for="case_type">Parent Case Type </label>
                             <select class="form-control case_type" id="case_type" name="case_type">
-                                <option value="">Select Case Type</option>
+                                <option value="">None</option>
                                 @foreach($caseTypes as $type)
                                     <option value="{{$type->id}}"
                                         {{(isset($caseType) && $caseType->parent_id==$type->id)?'selected=""':''}}>
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <label for="case_subtype">Case Sub Type <span class="text-danger">*</span></label>
+                            <label for="case_subtype">Case Type <span class="text-danger">*</span></label>
                             <input type="text" placeholder="" class="form-control" id="case_type_name"
                                    name="case_type_name">
                         </div>

@@ -20,10 +20,10 @@ var DatatableRemoteAjaxDemo = function () {
             "serverSide": true,
             dom: 'Bfrtip',
             "buttons": [
-                'copyHtml5',
                 'excelHtml5',
                 'csvHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
+                'print'
             ],
             // "responsive":true,
             "order": [[0, "desc"]],

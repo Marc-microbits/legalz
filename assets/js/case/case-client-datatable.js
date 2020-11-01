@@ -26,10 +26,10 @@ var DatatableRemoteAjaxDemo = function () {
             "width": 200,
             dom: 'Bfrtip',
             "buttons": [
-                'copyHtml5',
                 'excelHtml5',
                 'csvHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
+                'print'
             ],
             // "iDisplayLength": 2,
             "ajax": {

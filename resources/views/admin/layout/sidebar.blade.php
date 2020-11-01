@@ -89,6 +89,10 @@
                             <li><a href="{{ url('admin/court-type') }}">Court Type</a></li>
                         @endif
 
+                        @if($adminHasPermition->can(['company_type_list']) == "1")
+                            <li><a href="{{ url('admin/company-type') }}">Company Type</a></li>
+                        @endif
+
                         @if($adminHasPermition->can(['court_list']) == "1")
                             <li><a href="{{ url('admin/court') }}">Court</a></li>
                         @endif

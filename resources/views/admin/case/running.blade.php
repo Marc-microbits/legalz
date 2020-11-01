@@ -15,6 +15,10 @@
                     @if($adminHasPermition->can(['case_add']))
                         <a href="{{ route('case-running.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
                             Add Case</a>
+                        <a href="{{ route('case-contract.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
+                            Add Contract</a>
+                        <a href="{{ route('case-procedure.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
+                            Add Procedure</a>
                     @endif
 
                 </div>
@@ -78,6 +82,9 @@
 
                                 <li role="presentation" class="{{(Request::is('admin/case-nb'))?'active':''}} ">
                                     <a href="{{url('admin/case-nb')}}">Contracts</a>
+                                </li>
+                                <li role="presentation" class="{{(Request::is('admin/case-procedure'))?'active':''}} ">
+                                    <a href="{{url('admin/case-procedure')}}">Procedures</a>
                                 </li>
                                 <li role="presentation" class="{{(Request::is('admin/case-archived'))?'active':''}} ">
                                     <a href="{{url('admin/case-archived')}}">Archived Cases</a>

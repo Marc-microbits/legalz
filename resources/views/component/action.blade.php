@@ -1,4 +1,4 @@
-<ul class="nav navbar-right panel_toolbox">
+<ul class="nav navbar-right panel_toolbox text-center">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i
                 class="fa fa-gear" style="font-size: 19px;"></i></a>

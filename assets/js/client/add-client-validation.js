@@ -9,12 +9,9 @@ var FormControlsClient = {
             debug: false,
             rules: {
                 f_name: "required",
-                m_name: "required",
+
                 l_name: "required",
-                address: "required",
-                country: "required",
-                state: "required",
-                city_id: "required",
+
                 email: {
                     email: true,
                 },
@@ -56,15 +53,15 @@ var FormControlsClient = {
                     number: "please enter digit 0-9.",
                 },
                 alternate_no: {
-                    required: "Please enter alternate no.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    required: "Please enter alternative number.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be max 20 digits.",
                     number: "please enter digit 0-9.",
                 },
                 reference_mobile: {
                     required: "Please enter Reference mobile no.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be max 20 digits.",
                     number: "Please enter digit 0-9.",
                 }
 

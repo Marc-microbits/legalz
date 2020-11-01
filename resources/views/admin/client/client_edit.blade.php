@@ -69,14 +69,14 @@
                                        class="form-control" id="alternate_no" name="alternate_no" maxlength="10">
                             </div>
                             <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Address <span class="text-danger">*</span></label>
+                                <label for="fullname">Address</label>
                                 <input type="text" placeholder="" value="{{ $client->address ?? ''}}"
                                        class="form-control" id="address" name="address">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">Country <span class="text-danger">*</span></label>
+                                <label for="fullname">Country</label>
                                 <select class="form-control select-change country-select2 selct2-width-100 "
                                         name="country" id="country"
                                         data-url="{{ route('get.country') }}"
@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">State <span class="text-danger">*</span></label>
+                                <label for="fullname">State</label>
                                 <select id="state" name="state"
 
                                         data-url="{{ route('get.state') }}"
@@ -108,7 +108,7 @@
                             </div>
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                <label for="fullname">City <span class="text-danger">*</span></label>
+                                <label for="fullname">City</label>
                                 <select id="city_id" name="city_id"
                                         data-url="{{ route('get.city') }}"
                                         data-target="#state"
@@ -211,7 +211,7 @@
                                                                maxlength="10">
                                                     </div>
                                                     <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                        <label for="fullname">Address <span class="text-danger">*</span></label>
+                                                        <label for="fullname">Address</label>
                                                         <input type="text" id="address_client" name="address_client"
                                                                data-rule-required="true"
                                                                data-msg-required="Please enter address."
@@ -239,7 +239,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                    <label for="fullname">Middle Name <span class="text-danger">*</span></label>
+                                                    <label for="fullname">Middle Name</label>
                                                     <input type="text" id="middlename" name="middlename"
                                                            data-rule-required="true"
                                                            data-msg-required="Please enter middle name."
@@ -344,7 +344,7 @@
                                                                maxlength="10">
                                                     </div>
                                                     <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                        <label for="fullname">Address <span class="text-danger">*</span></label>
+                                                        <label for="fullname">Address</label>
                                                         <input type="text" id="address_client" name="address_client"
                                                                data-rule-required="true"
                                                                data-msg-required="Please enter address."
@@ -382,7 +382,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                                    <label for="fullname">Middle Name <span class="text-danger">*</span></label>
+                                                    <label for="fullname">Middle Name</label>
                                                     <input type="text" id="middlename" name="middlename"
                                                            data-rule-required="true"
                                                            data-msg-required="Please enter name." class="form-control">

@@ -52,7 +52,7 @@ class ClientController extends Controller
         $this->data['state'] = State::all();
         $this->data['city'] = State::all();
         do{
-            $uniqid = Str::random(6);
+            $uniqid = Str::random(10);
         }while(AdvocateClient::where('invitation_code', $uniqid)->count() != 0);
 
         return view('admin.client.client_create', compact('uniqid'));
@@ -186,14 +186,13 @@ class ClientController extends Controller
             $AdvocateClient->country_id = $request->c_country;
             $AdvocateClient->state_id = $request->c_state;
             $AdvocateClient->city_id = $request->c_city_id;
-            $AdvocateClient->management_position = $request->m_position;
-            $AdvocateClient->management_name = $request->m_position;
-            $AdvocateClient->management_number = $request->m_number;
-            $AdvocateClient->management_email = $request->m_email;
-            $AdvocateClient->management_address = $request->m_address;
+            if(isset($request->group)){
+                $AdvocateClient->management = json_encode($request->group);
+            }
             $AdvocateClient->reference_name = $request->reference_name;
         }
         $AdvocateClient->client_type = $request->client_type;
+        $AdvocateClient->notes = $request->notes;
 
         if($request->hasfile('documents'))
         {

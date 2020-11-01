@@ -19,10 +19,9 @@ var DatatableRemoteAjaxDemo = function () {
             "serverSide": true,
             dom: 'Bfrtip',
             "buttons": [
-                'copyHtml5',
                 'excelHtml5',
                 'csvHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
             ],
             "oLanguage": {sProcessing: "<div class='loader-container'><div id='loader'></div></div>"},
             "order": [[0, "asc"]],

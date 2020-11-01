@@ -10,10 +10,9 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             @include('component.error')
-            <div class="x_panel">
-                <form id="add_client" name="add_client" role="form" method="POST" autocomplete="off" enctype="multipart/form-data"
-                      action="{{route('clients.store')}}">
-                    {{ csrf_field() }}
+            <form id="add_client" name="add_client" role="form" method="POST" autocomplete="off" enctype="multipart/form-data" action="{{route('clients.store')}}" class="repeater">
+                {{ csrf_field() }}
+                <div class="x_panel">
                     <div class="x_content">
                         @if (count($errors) > 0)
                             <div class="alert alert-danger">
@@ -31,6 +30,14 @@
 
                                 <input type="radio" name="client_type" id="client_typeI" value="Individual" checked="" required/> &nbsp;&nbsp;Individual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="radio" name="client_type" id="client_typeC" value="Corporate"/>&nbsp;&nbsp;Corporate
+                            </div>
+
+                            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label for="client_code">Invitation code </label><br/>
+                                <span style="font-size: 24px;">{{$uniqid}}</span>
+                                <input type="hidden" placeholder="" id="client_code"
+                                       name="client_code" value="{{$uniqid}}" />
+                                <i class="fa fa-eye show-invitation" style="font-size: 24px;margin-left: 10px;cursor: pointer;"></i>
                             </div>
                         </div>
                             <br/>
@@ -54,7 +61,7 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Middle Name <span class="text-danger">*</span></label>
+                                    <label for="fullname">Middle Name</label>
                                     <input type="text" placeholder="" class="form-control" id="m_name" name="m_name">
                                 </div>
 
@@ -84,18 +91,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Alternate Number</label>
+                                    <label for="fullname">Alternative Number</label>
                                     <input type="text" placeholder="" class="form-control" id="alternate_no"
                                            name="alternate_no" maxlength="10">
                                 </div>
                                 <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Address <span class="text-danger">*</span></label>
+                                    <label for="fullname">Address</label>
                                     <input type="text" placeholder="" class="form-control" id="address" name="address">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Country <span class="text-danger">*</span></label>
+                                    <label for="fullname">Country</label>
                                     <select class="form-control select-change country-select2"
                                             name="country" id="country"
                                             data-url="{{ route('get.country') }}"
@@ -107,7 +114,7 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">State <span class="text-danger">*</span></label>
+                                    <label for="fullname">State</label>
                                     <select id="state" name="state"
 
                                             data-url="{{ route('get.state') }}"
@@ -120,24 +127,18 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">City <span class="text-danger">*</span></label>
+                                    <label for="fullname">City</label>
                                     <input type="text" id="city_id" name="city_id"
                                             class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                             <label for="fullname">Reference Name </label>
                             <input type="text" placeholder="" class="form-control" id="reference_name"
                                    name="reference_name">
                         </div>
 
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                            <label for="client_code">Invitation code </label><br/>
-                            <span style="font-size: 24px;">{{$uniqid}}</span>
-                            <input type="hidden" placeholder="" id="client_code"
-                                   name="client_code" value="{{$uniqid}}" />
-                        </div>
 
                     </div>
                         </div>
@@ -152,6 +153,14 @@
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="companyType">Company Type <span class="text-danger">*</span></label>
+                                    <select class="form-control select-change company-select2"
+                                            name="companyTypeSelect" id="companyTypeSelect"
+                                            data-url="{{ route('get.companyType') }}">
+                                        <option value=""> Select Company Type</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 hide company_type_field">
+                                    <label for="companyType">Please specify <span class="text-danger">*</span></label>
                                     <input type="text" placeholder="" class="form-control" id="companyType" name="companyType" required>
                                 </div>
 
@@ -181,20 +190,20 @@
                                            name="mobile_company">
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Alternate Number</label>
+                                    <label for="fullname">Alternative Number</label>
                                     <input type="text" placeholder="" class="form-control" id="alternate_company" maxlength="20"
                                            name="alternate_company">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Address <span class="text-danger">*</span></label>
+                                    <label for="fullname">Address</label>
                                     <input type="text" placeholder="" class="form-control" id="c_address" name="c_address">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Country <span class="text-danger">*</span></label>
+                                    <label for="fullname">Country</label>
                                     <select class="form-control select-change country-select2"
                                             name="c_country" id="c_country"
                                             data-url="{{ route('get.country') }}"
@@ -205,7 +214,7 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">State <span class="text-danger">*</span></label>
+                                    <label for="fullname">State</label>
                                     <select id="c_state" name="c_state"
 
                                             data-url="{{ route('get.state') }}"
@@ -218,59 +227,35 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">City <span class="text-danger">*</span></label>
+                                    <label for="fullname">City</label>
                                     <input type="text" id="c_city_id" name="c_city_id"
                                            class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="fullname">Management: Position <span class="text-danger">*</span></label>
-                                    <input type="text" id="m_position" name="m_position"
-                                           class="form-control" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="fullname">Management: Name <span class="text-danger">*</span></label>
-                                    <input type="text" id="m_name" name="m_name"
-                                           class="form-control" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="fullname">Management: Number <span class="text-danger">*</span></label>
-                                    <input type="text" id="m_number" name="m_number"
-                                           class="form-control" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="fullname">Management: Email <span class="text-danger">*</span></label>
-                                    <input type="text" id="m_email" name="m_email"
-                                           class="form-control" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                                    <label for="fullname">Management: Address <span class="text-danger">*</span></label>
-                                    <input type="text" placeholder="" class="form-control" id="m_address" name="m_address">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                                <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Reference Name </label>
                                     <input type="text" placeholder="" class="form-control" id="reference_name"
                                            name="reference_name">
                                 </div>
-
-                                <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="client_code">Invitation code </label><br/>
-                                    <span style="font-size: 24px;">{{$uniqid}}</span>
-                                    <input type="hidden" placeholder="" id="client_code"
-                                           name="client_code" value="{{$uniqid}}" />
-                                </div>
-
                             </div>
                         </div>
 
-                        <div class="documents">
-                            <label for="documents">Documents </label>
-                            <input type="file" name="documents[]" class="form-control" multiple />
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="documents">
+                                    <label for="documents">Documents </label>
+                                    <input type="file" name="documents[]" class="form-control" multiple />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="notes">
+                                    <label for="notes">Notes </label>
+                                    <textarea name="notes" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group pull-right">
@@ -291,8 +276,48 @@
 
 
                     </div>
-                </form>
             </div>
+
+            <div class="x_panel hide" id="management">
+                <div data-repeater-list="group">
+                    <div class="row form-group" data-repeater-item>
+                    <div class="col-md-3">
+                        <label for="fullname">Management: Position</label>
+                        <input type="text" id="m_position" name="m_position"
+                               class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fullname">Management: Name</label>
+                        <input type="text" id="m_name" name="m_name"
+                               class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fullname">Management: Number</label>
+                        <input type="text" id="m_number" name="m_number"
+                               class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fullname">Management: Email</label>
+                        <input type="text" id="m_email" name="m_email"
+                               class="form-control" />
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12 form-group">
+                        <label for="fullname">Management: Address</label>
+                        <input type="text" placeholder="" class="form-control" id="m_address" name="m_address">
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button data-repeater-create type="button" value="Add New"
+                                class="btn btn-success waves-effect waves-light btn btn-success-edit" type="button">
+                            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </form>
 
         </div>
     </div>

@@ -2,6 +2,7 @@ $(document).ready(function () {
    countrySelect2 = $('.country-select2');
    stateSelect2 = $('.state-select2');
    citySelect2 = $('.city-select2');
+   coompanySelect2 = $('.company-select2');
 
 
 
@@ -31,6 +32,35 @@ $(document).ready(function () {
             delay: 250
         },
         placeholder: 'Select country',
+        // minimumInputLength: 1,
+    });
+
+    coompanySelect2.select2({
+        allowClear :true,
+        ajax: {
+            url: coompanySelect2.data('url'),
+            data: function (params) {
+                return {
+                    search: params.term,
+                    id : $(coompanySelect2.data('target')).val()
+                };
+            },
+            dataType: 'json',
+            processResults: function (data) {
+                return {
+                    results: data.map(function (item) {
+                        return {
+                            id: item.id,
+                            text: item.company_type_name,
+                            otherfield: item,
+                        };
+                    }),
+                }
+            },
+            cache: true,
+            delay: 250
+        },
+        placeholder: 'Select company type',
         // minimumInputLength: 1,
     });
 
@@ -107,5 +137,14 @@ $(document).ready(function () {
         var el = $(this);
         var clearInput = el.data('clear').toString();
         $(clearInput).val(null).trigger('change');
+    })
+
+    $('.company-select2').on('select2:select' ,function(e){
+        if($(this).val() == null){
+            $(".company_type_field").removeClass('hide');
+        }else{
+            $(".company_type_field").addClass('hide');
+            $("#companyType").val($(this).find('option:selected').text());
+        }
     })
 });

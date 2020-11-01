@@ -9,12 +9,9 @@ var FormControlsClient = {
             debug: false,
             rules: {
                 f_name: "required",
-                m_name: "required",
+
                 l_name: "required",
-                address: "required",
-                country: "required",
-                state: "required",
-                city_id: "required",
+
                 email: {
                     email: true,
                 },
@@ -51,20 +48,20 @@ var FormControlsClient = {
                 },
                 mobile: {
                     required: "Please enter mobile.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be max 20 digits.",
                     number: "please enter digit 0-9.",
                 },
                 alternate_no: {
-                    required: "Please enter alternate no.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    required: "Please enter alternative number.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be max 20 digits.",
                     number: "please enter digit 0-9.",
                 },
                 reference_mobile: {
                     required: "Please enter Reference mobile no.",
-                    minlength: "Mobile must be 10 digit.",
-                    maxlength: "Mobile must be 10 digit.",
+                    minlength: "Mobile must be at least 6 digits.",
+                    maxlength: "Mobile must be max 20 digits.",
                     number: "Please enter digit 0-9.",
                 }
 
@@ -89,7 +86,9 @@ jQuery(document).ready(function () {
         if($(this).val() == "Individual"){
             $("#individual_client").removeClass('hide').addClass('show');
             $("#corporate_client").removeClass('show').addClass('hide');
+            $("#management").removeClass('show').addClass('hide');
         }else{
+            $("#management").removeClass('hide').addClass('show');
             $("#corporate_client").removeClass('hide').addClass('show');
             $("#individual_client").removeClass('show').addClass('hide');
         }
@@ -121,6 +120,17 @@ jQuery(document).ready(function () {
         }
 
     });
+
+    $(".show-invitation").on('click', function(){
+        if($(this).hasClass('fa-eye')){
+            $(this).closest('div').find('span').css({'opacity': '0'});
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+        }else{
+            $(this).closest('div').find('span').css({'opacity': '1'});
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+
+    })
 
     $('.repeater').repeater({
         initEmpty: false,

@@ -86,10 +86,8 @@
 
                                             <div class="form-group">
                                                 <label class="discount_text "><b class="position_advo">Respondent
-                                                        Advocate</b><span class="text-danger">*</span></label>
+                                                        Advocate</b></label>
                                                 <input type="text" id="party_advocate" name="party_advocate"
-                                                       data-rule-required="true"
-                                                       data-msg-required="Please enter advocate name."
                                                        class="form-control">
                                             </div>
 

@@ -826,7 +826,7 @@ class CaseRunningController extends Controller
         $data['client_list'] = AdvocateClient::where('is_active', 'Yes')->orderBy('first_name', 'asc')->get();
         // dd(   $data['client_list']);
 
-        $data['users'] = Admin::where('user_type', '=', "User")->where('is_active', 'Yes')->get();
+        $data['users'] = Admin::where('is_user_type', '=', "ADVOCATE")->where('is_active', 'Yes')->get();
 
 
         return view('admin.case.add_case', $data);

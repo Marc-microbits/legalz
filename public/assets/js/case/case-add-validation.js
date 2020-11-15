@@ -12,11 +12,9 @@ var FormControlsClient = {
         $("#add_case").validate({
             rules: {
                 party_name: "required",
-                party_advocate: "required",
             },
             messages: {
                 party_name: "Please enter name.",
-                party_advocate: "Please enter advocate name.",
             },
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent()).addClass('text-danger');

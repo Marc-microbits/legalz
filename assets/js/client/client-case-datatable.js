@@ -24,7 +24,6 @@ var DatatableRemoteAjaxDemo = function () {
             dom: 'Bfrtip',
             "buttons": [
                 'excelHtml5',
-                'csvHtml5',
                 'pdfHtml5',
                 'print'
             ],

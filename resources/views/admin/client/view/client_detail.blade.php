@@ -49,8 +49,17 @@
                                     <td class="fs15 fw700 text-right">{{ $client->mobile ?? '' }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Reference Name</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->reference_name ?? '' }}</td>
+                                    <td>Alternate Number</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->alternate_no ?? '' }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td class="fs15 fw700 text-right s">{{ $client->email ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address :</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->address ?? '' }}</td>
+
                                 </tr>
                                 <tr>
                                     <td>Country</td>
@@ -65,21 +74,12 @@
                                     <td class="fs15 fw700 text-right">{{ $client->city_id }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
-                                    <td class="fs15 fw700 text-right s">{{ $client->email ?? '' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Alternate No.</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->alternate_no ?? '' }} </td>
+                                    <td>Reference Name</td>
+                                    <td class="fs15 fw700 text-right">{{ $client->reference_name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <td>Reference Mobile</td>
                                     <td class="fs15 fw700 text-right">{{ $client->reference_mobile ?? '' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address :</td>
-                                    <td class="fs15 fw700 text-right">{{ $client->address ?? '' }}</td>
-
                                 </tr>
 
 
@@ -88,13 +88,15 @@
                         </div>
                         <div class="col-md-6">
                             Documents:<br/>
-                            @foreach(json_decode($client->documents) as $document)
-                                @php $ext = 'png'; if(substr($document, -3) == 'pdf') $ext = 'pdf'; @endphp
-                                <div class="file" style="position: relative;float: left;width: fit-content;margin-right: 20px;">
-                                    <a href="/upload/files/{{$document}}" target="_blank"><img src="/assets/images/{{$ext == 'pdf' ? 'pdf-icon.png' : 'photo-icon.png'}}" style="width: 60px;"/></a>
-                                    <i class="fa fa-close delete-doc" data-doc="{{$document}}" style="position: absolute;top: 0;left: 100%;font-size: 12px;color: black;cursor: pointer;"></i>
-                                </div>
-                            @endforeach
+                            @if(is_array(json_decode($client->documents)))
+                                @foreach(json_decode($client->documents) as $document)
+                                    @php $ext = 'png'; if(substr($document, -3) == 'pdf') $ext = 'pdf'; @endphp
+                                    <div class="file" style="position: relative;float: left;width: fit-content;margin-right: 20px;">
+                                        <a href="/upload/files/{{$document}}" target="_blank"><img src="/assets/images/{{$ext == 'pdf' ? 'pdf-icon.png' : 'photo-icon.png'}}" style="width: 60px;"/></a>
+                                        <i class="fa fa-close delete-doc" data-doc="{{$document}}" style="position: absolute;top: 0;left: 100%;font-size: 12px;color: black;cursor: pointer;"></i>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
 
 

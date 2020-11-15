@@ -172,6 +172,7 @@ class ClientController extends Controller
             $AdvocateClient->state_id = $request->state;
             $AdvocateClient->city_id = $request->city_id;
             $AdvocateClient->reference_name = $request->reference_name;
+            $AdvocateClient->reference_mobile = $request->reference_mobile;
         }else{
             $AdvocateClient->prefix = null;
             $AdvocateClient->invitation_code = $request->client_code;
@@ -189,7 +190,8 @@ class ClientController extends Controller
             if(isset($request->group)){
                 $AdvocateClient->management = json_encode($request->group);
             }
-            $AdvocateClient->reference_name = $request->reference_name;
+            $AdvocateClient->reference_name = $request->reference_name_c;
+            $AdvocateClient->reference_mobile = $request->reference_mobile_c;
         }
         $AdvocateClient->client_type = $request->client_type;
         $AdvocateClient->notes = $request->notes;

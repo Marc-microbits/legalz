@@ -371,3 +371,6 @@ body {
 .select2-container{
     width: 100% !important;
 }
+table.dataTable thead th, table.dataTable thead td{
+    padding: 8px 10px;
+}

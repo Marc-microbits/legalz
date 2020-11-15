@@ -109,18 +109,8 @@
 
                             <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                 <label for="fullname">City</label>
-                                <select id="city_id" name="city_id"
-                                        data-url="{{ route('get.city') }}"
-                                        data-target="#state"
-
-                                        class="form-control city-select2">
-                                    <option value=""> Select City</option>
-                                    @if($client->city)
-                                        <option value="{{ $client->city->id }}"
-                                                selected>{{ $client->city->name }}</option>
-                                    @endif
-
-                                </select>
+                                <input type="text" id="city_id" name="city_id"
+                                       class="form-control" />
                             </div>
                         </div>
                         <div class="row">

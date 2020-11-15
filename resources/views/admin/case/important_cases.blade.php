@@ -66,20 +66,23 @@
                   <div class="" role="tabpanel" data-example-id="togglable-tabs">
                      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 
-                <li role="presentation" class="{{(Request::is('admin/case-running'))?'active':''}} ">
-                  <a   href="{{url('admin/case-running')}}">Running Cases</a>
-                </li>
+                         <li role="presentation" class="{{(Request::is('admin/case-running'))?'active':''}} ">
+                             <a href="{{url('admin/case-running')}}">Running Cases</a>
+                         </li>
 
-                <li role="presentation"  class="{{(Request::is('admin/case-important'))?'active':''}} ">
-               <a  href="{{url('admin/case-important')}}">Important Cases</a>
-                </li>
+                         <li role="presentation" class="{{(Request::is('admin/case-important'))?'active':''}} ">
+                             <a href="{{url('admin/case-important')}}">Important Cases</a>
+                         </li>
 
-                <li role="presentation" class="{{(Request::is('admin/case-nb'))?'active':''}} ">
-                  <a   href="{{url('admin/case-nb')}}">Contracts</a>
-              </li>
-                <li role="presentation" class="{{(Request::is('admin/case-archived'))?'active':''}} ">
-                 <a   href="{{url('admin/case-archived')}}">Archived Cases</a>
-              </li>
+                         <li role="presentation" class="{{(Request::is('admin/case-nb'))?'active':''}} ">
+                             <a href="{{url('admin/case-nb')}}">Contracts</a>
+                         </li>
+                         <li role="presentation" class="{{(Request::is('admin/case-procedure'))?'active':''}} ">
+                             <a href="{{url('admin/case-procedure')}}">Procedures</a>
+                         </li>
+                         <li role="presentation" class="{{(Request::is('admin/case-archived'))?'active':''}} ">
+                             <a href="{{url('admin/case-archived')}}">Archived Cases</a>
+                         </li>
 
                    </ul>
 

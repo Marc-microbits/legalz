@@ -34,10 +34,10 @@
 
                             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                                 <label for="client_code">Invitation code </label><br/>
-                                <span style="font-size: 24px;">{{$uniqid}}</span>
+                                <i class="fa fa-eye-slash show-invitation" style="font-size: 24px;cursor: pointer;"></i>&nbsp; &nbsp;
+                                <span style="font-size: 24px;opacity:0;">{{$uniqid}}</span>
                                 <input type="hidden" placeholder="" id="client_code"
                                        name="client_code" value="{{$uniqid}}" />
-                                <i class="fa fa-eye show-invitation" style="font-size: 24px;margin-left: 10px;cursor: pointer;"></i>
                             </div>
                         </div>
                             <br/>
@@ -86,14 +86,14 @@
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Mobile Number <span class="text-danger">*</span></label>
                                     <input type="text" placeholder="" class="form-control" id="mobile" maxlength="20"
-                                           name="mobile">
+                                           name="mobile" autocomplete="off">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Alternative Number</label>
                                     <input type="text" placeholder="" class="form-control" id="alternate_no"
-                                           name="alternate_no" maxlength="10">
+                                           name="alternate_no" maxlength="20" autocomplete="off">
                                 </div>
                                 <div class="col-md-9 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Address</label>
@@ -133,11 +133,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                        <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <label for="fullname">Reference Name </label>
-                            <input type="text" placeholder="" class="form-control" id="reference_name"
-                                   name="reference_name">
-                        </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                                    <label for="fullname">Reference Name </label>
+                                    <input type="text" placeholder="" class="form-control" id="reference_name"
+                                           name="reference_name">
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <label for="fullname">Reference Number </label>
+                                    <input type="text" placeholder="" class="form-control" id="reference_mobile"
+                                           name="reference_mobile" autocomplete="off">
+                                </div>
 
 
                     </div>
@@ -187,12 +192,12 @@
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Mobile Number <span class="text-danger">*</span></label>
                                     <input type="text" placeholder="" class="form-control" id="mobile_company" maxlength="20"
-                                           name="mobile_company">
+                                           name="mobile_company" autocomplete="off">
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Alternative Number</label>
                                     <input type="text" placeholder="" class="form-control" id="alternate_company" maxlength="20"
-                                           name="alternate_company">
+                                           name="alternate_company" autocomplete="off">
                                 </div>
                             </div>
                             <div class="row">
@@ -235,8 +240,13 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                                     <label for="fullname">Reference Name </label>
-                                    <input type="text" placeholder="" class="form-control" id="reference_name"
-                                           name="reference_name">
+                                    <input type="text" placeholder="" class="form-control" id="reference_name_c"
+                                           name="reference_name_c">
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <label for="fullname">Reference Number </label>
+                                    <input type="text" placeholder="" class="form-control" id="reference_mobile_c"
+                                           name="number" autocomplete="off">
                                 </div>
                             </div>
                         </div>
